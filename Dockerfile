@@ -97,12 +97,12 @@ RUN set -ex \
 # Compile and link C app against libunit.a
 Run set -x \
   && export DEB_BUILD_OPTIONS="hardening=+all,-pie" \
-  && CC_OPT="$(DEB_CFLAGS_APPEND="-D_FORTIFY_SOURCE=2 -fPIC" dpkg-buildflags --get CFLAGS)" \
+  && CC_OPT="$(DEB_CFLAGS_APPEND="-D_FORTIFY_SOURCE=2 -fPIC -I/usr/src/unit/src" dpkg-buildflags --get CFLAGS)" \
   && LD_OPT="$(DEB_LDFLAGS_APPEND="-Wl,--as-needed -pie -L. -lc -l:libunit.a -lpthread" dpkg-buildflags --get LDFLAGS)" \
   && cd /usr/src/app \
-  && gcc $CC_OPT hello.c -o hello $LD_OPT \
-  && chmod +x ./hello \
-  && mv ./hello /srv/hello
+  && gcc $CC_OPT app.c -o app $LD_OPT \
+  && chmod +x ./app \
+  && mv ./app /srv/app
 
 # Cleanup
 RUN set -x \

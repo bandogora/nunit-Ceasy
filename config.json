@@ -8,7 +8,7 @@
       "c-app": {
           "type": "external",
           "working_directory": "/srv/",
-          "executable": "/srv/hello"
+          "executable": "/srv/app"
       }
   }
 }
