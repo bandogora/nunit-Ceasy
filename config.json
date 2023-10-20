@@ -1,0 +1,14 @@
+{
+  "listeners": {
+      "*:8081": {
+          "pass": "applications/c-app"
+      }
+  },
+  "applications": {
+      "c-app": {
+          "type": "external",
+          "working_directory": "/srv/",
+          "executable": "/srv/hello"
+      }
+  }
+}
