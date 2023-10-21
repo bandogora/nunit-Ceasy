@@ -16,7 +16,7 @@ Inspired by the article [NGINX Unit Adds Assembly Language Support](https://www.
 **Unit source files will be included in the docker image, so you don't need local copies.**
 
 2. Put your app source files in the `src/` directory.
-3. Rename your maic C file to `app.c`; or change the expected file name in the `Dockerfile`.
+3. Rename your maic C file to `main.c`; or change the expected file name in the `Dockerfile`.
 4. Build the docker image:
   ```sh
   docker build -t nunit:latest .

@@ -7,7 +7,7 @@ LABEL org.opencontainers.image.source="https://github.com/bandogora/nunit-Ceasy"
 LABEL org.opencontainers.image.documentation="https://unit.nginx.org/installation/#docker-images"
 
 # Copy app source files
-COPY --link ./src/* /usr/src/app/
+COPY --link ./sample/* /usr/src/app/
 
 # Add the default entrypoint (unsafe links)
 ADD --link https://raw.githubusercontent.com/nginx/unit/master/pkg/docker/docker-entrypoint.sh /usr/local/bin/
