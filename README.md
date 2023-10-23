@@ -31,4 +31,25 @@ Inspired by the article [NGINX Unit Adds Assembly Language Support](https://www.
 ### Requirements
 Compiling `libunit.a` requires the Unit source code, see https://unit.nginx.org/installation/
 
-***Todo: make script***
+1. Run
+```sh
+UNIT_SRC=/path/to/unit make prepare
+```
+to create `libunit.a` and copy over the necessary header to `include/`
+
+2. Run `make`
+
+3. Run your app `./app`
+
+## Sample
+
+1. Run
+  ```sh
+  UNIT_SRC=/path/to/unit make sample
+  ```
+
+2. Run`./sample` or build the docker image:
+  ```sh
+  docker build -t nunit:latest -f Dockerfile.sample .
+  ```
+
