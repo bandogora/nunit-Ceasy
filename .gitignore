@@ -1,2 +1,9 @@
 app
+sample
 libunit.a
+Dockerfile.sample
+lib/*
+usr/*
+share/*
+include/*
+sample-dir/*

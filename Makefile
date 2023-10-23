@@ -2,39 +2,25 @@ unit_include_dir = -I./include
 nxt_unit_app = $(UNIT_SRC)/src/test/nxt_unit_app_test.c
 
 CFLAGS ?= $(unit_include_dir) -g -O2 -fstack-protector-strong -Wall -Wextra -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -fPIC
-LDFLAGS ?= -Wl,-z,relro -Wl,-z,now -Wl,--as-needed -pie -L. -lc -l:libunit.a -lpthread
+LDFLAGS ?= -Wl,-z,relro -Wl,-z,now -Wl,--as-needed -pie -L. -lc -l:lib/libunit.a -lpthread
 
 all: app
 
 app:
 	cc $(CFLAGS) ./src/main.c -o app $(LDFLAGS) && chmod +x app
 
-prepare: libunit.a unit-headers
-
-unit-headers: | include/nxt_unit_typedefs.h include/nxt_clang.h include/nxt_unit_request.h include/nxt_unit_sptr.h include/nxt_unit_field.h include/nxt_unit.h
-
-include/nxt_unit.h:
-	cp $(UNIT_SRC)/src/nxt_unit.h ./include/nxt_unit.h
-	sed -i '/^#include "nxt_auto_config.h"/d' ./include/nxt_unit.h
-	sed -i '/^#include "nxt_version.h"/d' ./include/nxt_unit.h
+prepare: libunit.a include/nxt_clang.h
 
 include/nxt_clang.h:
-	cp $(UNIT_SRC)/src/nxt_clang.h ./include/nxt_clang.h
-
-include/nxt_unit_request.h:
-	cp $(UNIT_SRC)/src/nxt_unit_request.h ./include/nxt_unit_request.h
-
-include/nxt_unit_typedefs.h:
-	cp $(UNIT_SRC)/src/nxt_unit_typedefs.h ./include/nxt_unit_typedefs.h
-
-include/nxt_unit_sptr.h:
-	cp $(UNIT_SRC)/src/nxt_unit_sptr.h ./include/nxt_unit_sptr.h
-
-include/nxt_unit_field.h:
-	cp $(UNIT_SRC)/src/nxt_unit_field.h ./include/nxt_unit_field.h
+	cp $(UNIT_SRC)/src/nxt_clang.h $(CURDIR)/include/nxt_clang.h
 
 libunit.a: $(UNIT_SRC)/build/Makefile
-	$(MAKE) -C $(UNIT_SRC) DESTDIR=./ libunit-install
+	$(MAKE) -C $(UNIT_SRC) DESTDIR=$(CURDIR) libunit-install
+	rm -rf $(CURDIR)/include
+	rm -rf $(CURDIR)/share
+	rm -rf $(CURDIR)/lib
+	mv $(CURDIR)/usr/local/* $(CURDIR)
+	rm -rf $(CURDIR)/usr
 
 $(UNIT_SRC)/build/Makefile: $(UNIT_SRC)/build
 	$($UNIT_SRC/configure)

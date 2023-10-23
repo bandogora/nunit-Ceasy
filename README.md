@@ -48,8 +48,8 @@ to create `libunit.a` and copy over the necessary header to `include/`
   UNIT_SRC=/path/to/unit make sample
   ```
 
-2. Run`./sample` or build the docker image:
+2. Run `./sample` or build the docker image:
   ```sh
-  docker build -t nunit:latest -f Dockerfile.sample .
+  docker build -t nunit:sample -f Dockerfile.sample .
   ```
 
